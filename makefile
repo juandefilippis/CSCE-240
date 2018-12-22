@@ -2,16 +2,16 @@ CC = g++  # use g++ compiler
 
 FLAGS = -std=c++11  # compile with C++ 11 standard
 FLAGS += -Wall      # compile with all warnings
+FLAGS += -g         # produce debugging information
 
-LINK = $(CC) $(FLAGS) -o  # final linked build to binary executable
+LINK = $(CC) $(FLAGS) -o
+COMPILE = $(CC) $(FLAGS) -c
 
-COMPILE = $(CC) $(FLAGS) -c  # compilation to intermediary .o files
-
-test : test.cc max_heap.o
+test_stat_tracker: test_stat_tracker.o
 	$(LINK) $@ $^
 
-max_heap.o : max_heap.cc max_heap.h
-	$(COMPILE) $< 
+test_stat_tracker.o : test_stat_tracker.cc stat_tracker.cc stat_tracker.h
+	$(COMPILE) $<
 
 clean:
-	@rm test *.o
+	@rm -f *.o test_stack test_stat_tracker test_ppt search
